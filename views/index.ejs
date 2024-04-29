@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HODLINFO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-r4Hf8ye65G1vY8R7/7GSAzOjwMOdqK2jsU8oKMHpvkLwI+xrZ6PqVMBS8EZw8wM3" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/146c4de28e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            background-color: #191D28;
+        }
+
+        .header {
+            display: flex;
+            height: 100px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .left {
+            color: #3DC6C1;
+            font-size: 30px;
+            padding: 10px 20px;
+        }
+
+
+        .end {
+            display: flex;
+            align-items: center;
+        }
+
+        #timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            border: 1px solid #3DC6C1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .header .end button {
+            background-color: #3DC6C1;
+            padding: 10px;
+            border-radius: 15px;
+            color: white;
+            font-size: 20px;
+            margin-right: 10px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #Telegram {
+            margin-right: 6px;
+        }
+
+        /* .highlight {
+          color: red;
+          font-size: 64px;
+          animation: pulse 0.5s ease alternate infinite;
+        } */
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.2);
+            }
+        }
+
+        .slider-container {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 34px;
+            margin-right: 15px;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .center {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        .center select, button{
+            background-color: #2E3241;margin-right: 20px;
+            outline: none;
+            border: none;
+            padding: 10px;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .center select:hover, button:hover{
+            background-color: #5e637a;
+            color: #3DC6C1;
+        }
+
+        .hr {
+            border-top: 1px solid #3DC6C1;
+        }
+
+        .best {
+            display: flex;
+            justify-content: center;
+        }
+
+        .best h1 {
+            color: #50535B;
+        }
+
+        .average {
+            display: flex;
+            justify-content: center;
+        }
+
+        .average h1 {
+            color: #50535B;
+        }
+
+        .prices {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 120px;
+        }
+
+        .prices .first {
+            margin-left: 100px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .prices .first .percent {
+            font-size: 50px;
+            color: #3DC6C1;
+        }
+
+        .prices .first .time {
+            color: #50535B;
+            font-weight: 700;
+        }
+
+        .prices .second {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .prices .second .percent {
+            font-size: 50px;
+            color: #3DC6C1;
+        }
+
+        .prices .second .time {
+            color: #50535B;
+            font-weight: 700;
+        }
+
+        .prices .third .Total {
+            font-size: 50px;
+            color: white;
+        }
+
+        .prices .fourth {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .prices .fourth .percent {
+            font-size: 50px;
+            color: #3DC6C1;
+        }
+
+        .prices .fourth .time {
+            color: #50535B;
+            font-weight: 700;
+        }
+
+        .prices .five {
+            display: inline-block;
+            text-align: center;
+            margin-right: 100px;
+        }
+
+        .prices .five .percent {
+            font-size: 50px;
+            color: #3DC6C1;
+        }
+
+        .prices .five .time {
+            color: #50535B;
+            font-weight: 700;
+        }
+
+        .table-container {
+            margin-left: 140px;
+            height: 290px;
+            margin-right: 140px;
+            overflow: auto;
+            /* Use auto for scrollbars only when necessary */
+            background-color: #191D28;
+            /* Background color for the table container */
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            /* Ensure no spacing between table cells */
+            border: 1px solid #3DC6C1;
+            /* Add border around the table */
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #3DC6C1;
+            /* Add bottom border to table cells */
+            color: #3DC6C1;
+            /* Font color */
+        }
+
+        .table th {
+            background-color: #191D28;
+            /* Background color for table headers */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #191D28;
+            /* Background color for even rows */
+        }
+
+        .table tbody tr:hover {
+            background-color: #2C3247;
+            /* Lighter background color on hover */
+        }
+
+        .table tbody td {
+            font-size: 14px;
+        }
+
+        /* Styling for the first column */
+        .table tbody td:first-child,
+        .table thead th:first-child {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        /* Styling for the last column */
+        .table tbody td:last-child {
+            font-weight: bold;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background-color: #191D28;
+            /* Background color of the scrollbar track */
+        }
+
+        /* Scrollbar Thumb */
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #3DC6C1;
+            /* Color of the scrollbar thumb */
+            border-radius: 10px;
+            /* Rounded corners for the scrollbar thumb */
+        }
+
+        /* Hover styles for the scrollbar thumb */
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background-color: #5FD8D6;
+            /* Color of the scrollbar thumb on hover */
+        }
+
+        /* Scrollbar Arrows (not supported in all browsers) */
+        .table-container::-webkit-scrollbar-button {
+            display: none;
+            /* Hide scrollbar arrows */
+        }
+
+        /* Width and height of the scrollbar thumb */
+        .table-container::-webkit-scrollbar {
+            width: 10px;
+            /* Width of the scrollbar */
+            height: 10px;
+            /* Height of the scrollbar */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header container-fluid">
+        <div class="left">
+            <h1>HODLINFO</h1>
+        </div>
+        <div class="center container">
+            <select id="currencyButton" class="btn btn-primary mx-2">BTC</select>
+            <select id="currencySelect" class="form-select mx-2">
+                <% tickers.forEach(ticker => { %>
+                <option value="<%= ticker.base_unit %>"><%= ticker.base_unit %></option>
+                <% }); %>
+            </select>
+            <button class="btn btn-primary mx-2">BUY BTC</button>
+        </div>
+        <div class="end">
+            <div id="timer">0</div>
+            <button class="btn btn-primary mx-2"><i class="fab fa-telegram" id="Telegram"></i>Connect Telegram</button>
+            <label class="slider-container">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+    <div class="hr"></div>
+    <div class="best">
+        <h1>BEST PRICE TO TRADE</h1>
+    </div>
+    <div class="hr"></div>
+    <div class="prices">
+        <div class="first">
+            <div class="percent">01%</div>
+            <div class="time">5 Mins</div>
+        </div>
+        <div class="second">
+            <div class="percent">01%</div>
+            <div class="time">1 Hours</div>
+        </div>
+        <div class="third">
+            <div class="Total">&#x20B9;20901241</div>
+        </div>
+        <div class="fourth">
+            <div class="percent">01%</div>
+            <div class="time">1 Hours</div>
+        </div>
+        <div class="five">
+            <div class="percent">01%</div>
+            <div class="time">1 Hours</div>
+        </div>
+    </div>
+    <div class="hr"></div>
+    <div class="average">
+        <h1>AVERAGE BTC/INR NET PRICE INCLUDING COMMISION.</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-no-border table-bordered">
+            <!-- Added table-bordered class to retain cell borders -->
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Platform</th>
+                    <th scope="col">Last Traded Price</th>
+                    <th scope="col">Buy/Sell Price </th>
+                    <th scope="col">Difference</th>
+                    <th scope="col">Savings</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- Inside the <tbody> tag -->
+                <% tickers.forEach((ticker, index) => { %>
+                <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= ticker.base_unit %></td>
+                    <td><%= ticker.last %></td>
+                    <td><%=ticker.buy%></td>
+                    <td><%= ticker.buy - ticker.sell %></td> <!-- Difference -->
+                    <td><%= ticker.last - (ticker.buy - ticker.sell) %></td> <!-- Savings -->
+
+                </tr>
+                <% }) %>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-SvlqhoFTL5I1wu7qTRlM/7Uu6z2+Vo8urBPXZbS9uLJ//PrwH/5d6ZfK7zz8m1jD" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+<script>
+    const button = document.getElementById('currencyButton');
+
+    // Fetch exchange rates data from API
+    fetch('https://open.exchangerate-api.com/v6/latest')
+        .then(response => response.json())
+        .then(data => {
+            // Extract currencies from the API response
+            const currencies = Object.keys(data.rates);
+
+            // Populate button options with currencies
+            currencies.forEach(currency => {
+                const option = document.createElement('option');
+                option.value = currency;
+                option.textContent = currency;
+                button.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching exchange rates:', error));
+    let seconds = 59; // Set initial value to 59
+    const timerElement = document.getElementById('timer');
+
+    function updateTimer() {
+        timerElement.textContent = seconds;
+        if (seconds === 0) { // Check if seconds reach 0
+            timerElement.classList.add('highlight');
+        } else {
+            timerElement.classList.remove('highlight');
+        }
+        seconds = (seconds - 1 + 60) % 60; // Decrement seconds and loop back to 59 when reaching 0
+    }
+
+    setInterval(updateTimer, 1000);
+</script>
